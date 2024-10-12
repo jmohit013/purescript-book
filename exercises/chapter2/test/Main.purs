@@ -2,7 +2,7 @@ module Test.Main where
 
 import Prelude
 import Test.MySolutions
-import Test.NoPeeking.Solutions  -- This line should have been automatically deleted by resetSolutions.sh. See Chapter 2 for instructions.
+
 import Effect (Effect)
 import Euler (answer)
 import Test.Unit (suite, test)
@@ -26,7 +26,7 @@ This line should have been automatically deleted by resetSolutions.sh. See Chapt
       test "5 12 13" do
         Assert.equal 13.0 (diagonal 5.0 12.0)
 -- ANCHOR_END: diagonalTests
-    suite "circleArea" do
+{-     suite "circleArea" do
       test "radius 1" do
         Assert.equal 3.141592653589793 (circleArea 1.0)
       test "radius 3" do
@@ -38,6 +38,6 @@ This line should have been automatically deleted by resetSolutions.sh. See Chapt
         Assert.equal 56 (leftoverCents 456)
       test "-789" do
         Assert.equal (-89) (leftoverCents (-789))
-
+ -}
 {- This line should have been automatically deleted by resetSolutions.sh. See Chapter 2 for instructions.
 -}

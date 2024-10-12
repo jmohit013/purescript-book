@@ -4,13 +4,15 @@ You can edit this file as you like.
 -}
 { name = "my-project"
 , dependencies =
-  [ "console"
+  [ "assert"
+  , "console"
   , "effect"
   , "foldable-traversable"
   , "integers"
   , "lists"
   , "numbers"
   , "prelude"
+  , "psci-support"
   , "test-unit"
   ]
 , packages = ./packages.dhall

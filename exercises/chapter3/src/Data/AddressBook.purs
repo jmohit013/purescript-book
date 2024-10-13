@@ -4,8 +4,9 @@ module Data.AddressBook where
 import Prelude
 
 import Control.Plus (empty)
-import Data.List (List(..), filter, head)
+import Data.List (List(..), filter, head, any)
 import Data.Maybe (Maybe)
+import Data.Eq (eq)
 -- ANCHOR_END: imports
 
 -- ANCHOR: Address
@@ -60,11 +61,27 @@ insertEntry = Cons
 -- This line should have been automatically deleted by resetSolutions.sh. See Chapter 2 for instructions. NOTE TO MAINTAINER: If editing `findEntry`, remember to also update the non-anchored (and unsimplified) version of this function that is hardcoded in the book text.
 -- ANCHOR: findEntry_signature
 findEntry :: String -> String -> AddressBook -> Maybe Entry
--- ANCHOR_END: findEntry_signature
--- ANCHOR: findEntry_implementation
-findEntry firstName lastName = head <<< filter filterEntry
+findEntry firstName lastName book = head (filter findEntry book)
   where
--- ANCHOR_END: findEntry_implementation
-  filterEntry :: Entry -> Boolean
-  filterEntry entry = entry.firstName == firstName && entry.lastName == lastName
+    findEntry :: Entry -> Boolean
+    findEntry entry = entry.firstName == firstName && entry.lastName == lastName
+
+findEntryByStreet :: String -> AddressBook -> Maybe Entry
+findEntryByStreet street book = head (filter filterEntryByStreet book)
+  where
+    filterEntryByStreet :: Entry -> Boolean
+    filterEntryByStreet entry = entry.address.street == street
+
+
+isInBook :: Entry -> AddressBook -> Boolean
+isInBook entry book =  any matchesEntry book
+  where   
+    matchesEntry :: Entry -> Boolean
+    matchesEntry bookentry = entry.firstName == bookentry.firstName && entry.lastName == bookentry.lastName
+
+
+
+
+
+
 

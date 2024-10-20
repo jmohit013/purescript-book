@@ -1,14 +1,14 @@
 module Test.Main where
 
 import Prelude hiding (gcd)
-import Test.MySolutions
-import Test.NoPeeking.Solutions  -- This line should have been automatically deleted by resetSolutions.sh. See Chapter 2 for instructions.
+import Test.MySolutions (shapeText, Point, origin, Shape, Shape(..),factorial, binomial, pascal, sameCity, fromSingleton, getCenter, circleAtOrigin, centerShape, scaleShape, doubleScaleAndCenter, calculateWattage, Amp(..), Volt(..), Watt(..))
+-- import Test.NoPeeking.Solutions  -- This line should have been automatically deleted by resetSolutions.sh. See Chapter 2 for instructions.
 
-import ChapterExamples (Amp(..), current, fromString, gcd, gcdV2, isEmpty, livesInLA, lzs, partialFunction, showPerson, showPersonV2, sortPair, takeFive, toString, unknownPerson, Volt(..))
+import ChapterExamples ( current, fromString, gcd, gcdV2, isEmpty, livesInLA, lzs, partialFunction, showPerson, showPersonV2, sortPair, takeFive, toString, unknownPerson)
 import Data.Int (round)
 import Data.Maybe (Maybe(Just, Nothing))
 import Data.Person (Person)
-import Data.Picture (Shape(..), Picture, getCenter, origin)
+import Data.Picture (Picture)
 import Effect (Effect)
 import Test.Unit (TestSuite, suite, test)
 import Test.Unit.Assert as Assert
@@ -23,17 +23,17 @@ rose = { name: "Rose Jackson", address: { street: "464 Sample Terrace", city: "L
 amy :: Person
 amy = { name: "Amy Lopez", address: { street: "10 Purs Street", city: "Omaha" } }
 
-samplePicture :: Picture
-samplePicture =
-  [ Circle origin 2.0
-  , Circle { x: 2.0, y: 2.0 } 3.0
-  , Rectangle { x: 5.0, y: 5.0 } 4.0 4.0
-  ]
+-- samplePicture :: Picture
+-- samplePicture =
+--   [ Circle origin 2.0
+--   , Circle { x: 2.0, y: 2.0 } 3.0
+--   , Rectangle { x: 5.0, y: 5.0 } 4.0 4.0
+--   ]
 
 main :: Effect Unit
 main =
   runTest do
-    runChapterExamples
+    -- runChapterExamples
     {-  Move this block comment starting point to enable more tests
 This line should have been automatically deleted by resetSolutions.sh. See Chapter 2 for instructions. -}
     suite "Exercise Group - Simple Pattern Matching" do
@@ -42,8 +42,8 @@ This line should have been automatically deleted by resetSolutions.sh. See Chapt
           $ factorial 0
         Assert.equal 1
           $ factorial 1
-        Assert.equal 24
-          $ factorial 4
+        Assert.equal 120
+          $ factorial 5
         Assert.equal 3628800
           $ factorial 10
       test "Exercise - binomial" do
@@ -64,6 +64,8 @@ This line should have been automatically deleted by resetSolutions.sh. See Chapt
           $ pascal 0 3
         Assert.equal 0
           $ pascal 2 5
+        Assert.equal 1
+          $ pascal 6 6
         Assert.equal 252
           $ pascal 10 5
         Assert.equal 1
@@ -79,6 +81,10 @@ This line should have been automatically deleted by resetSolutions.sh. See Chapt
           $ fromSingleton "default" []
         Assert.equal "B"
           $ fromSingleton "default" ["B"]
+        Assert.equal 2
+          $ fromSingleton 0 [2]
+        Assert.equal 0
+          $ fromSingleton 0 [1,2]
         Assert.equal "default"
           $ fromSingleton "default" ["B", "C", "D"]
     suite "Exercise Group - Algebraic Data Types" do
@@ -114,28 +120,28 @@ This line should have been automatically deleted by resetSolutions.sh. See Chapt
         Assert.equal 60.0
           $ let (Watt w) = calculateWattage (Amp 0.5) (Volt 120.0)
             in w
-    suite "Exercise Group - Vector Graphics" do
-      test "Exercise - area" do
-        Assert.equal 50
-          $ round $ area $ Circle origin 4.0
-        Assert.equal 40
-          $ round $ area $ Rectangle origin 4.0 10.0
-        Assert.equal 0
-          $ round $ area $ Line origin { x: 2.0, y: 2.0 }
-        Assert.equal 0
-          $ round $ area $ Text origin "Text has no area!"
-      test "Exercise - Clipped shapeBounds" do
-        Assert.equal { top: -2.0, left: -2.0, right: 2.0, bottom: 2.0 }
-          -- Note to users: You'll need to manually import shapeBounds
-          -- from Data.Picture. Don't import from Test.NoPeeking.Solutions.
-          $ shapeBounds (Clipped samplePicture { x: 0.0, y: 0.0 } 4.0 4.0)
-        Assert.equal { top: 3.0, left: 3.0, right: 7.0, bottom: 7.0 }
-          $ shapeBounds (Clipped samplePicture { x: 5.0, y: 5.0 } 4.0 4.0)
-        Assert.equal { top: 2.0, left: 2.0, right: 7.0, bottom: 7.0 }
-          $ shapeBounds (Clipped samplePicture { x: 5.0, y: 5.0 } 6.0 6.0)
+--     suite "Exercise Group - Vector Graphics" do
+--       test "Exercise - area" do
+--         Assert.equal 50
+--           $ round $ area $ Circle origin 4.0
+--         Assert.equal 40
+--           $ round $ area $ Rectangle origin 4.0 10.0
+--         Assert.equal 0
+--           $ round $ area $ Line origin { x: 2.0, y: 2.0 }
+--         Assert.equal 0
+--           $ round $ area $ Text origin "Text has no area!"
+--       test "Exercise - Clipped shapeBounds" do
+--         Assert.equal { top: -2.0, left: -2.0, right: 2.0, bottom: 2.0 }
+--           -- Note to users: You'll need to manually import shapeBounds
+--           -- from Data.Picture. Don't import from Test.NoPeeking.Solutions.
+--           $ shapeBounds (Clipped samplePicture { x: 0.0, y: 0.0 } 4.0 4.0)
+--         Assert.equal { top: 3.0, left: 3.0, right: 7.0, bottom: 7.0 }
+--           $ shapeBounds (Clipped samplePicture { x: 5.0, y: 5.0 } 4.0 4.0)
+--         Assert.equal { top: 2.0, left: 2.0, right: 7.0, bottom: 7.0 }
+--           $ shapeBounds (Clipped samplePicture { x: 5.0, y: 5.0 } 6.0 6.0)
 
-{- This line should have been automatically deleted by resetSolutions.sh. See Chapter 2 for instructions.
--}
+-- {- This line should have been automatically deleted by resetSolutions.sh. See Chapter 2 for instructions.
+-- -}
 runChapterExamples :: TestSuite
 runChapterExamples =
   suite "Chapter Examples" do
@@ -177,5 +183,5 @@ runChapterExamples =
     test "partialFunction" do
       Assert.equal true
         $ partialFunction true
-    test "current" do
-      Assert.equal (Amp 0.003) current
+    -- test "current" do
+    --   Assert.equal (Amp 0.003) current

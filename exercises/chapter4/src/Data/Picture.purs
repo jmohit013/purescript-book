@@ -2,11 +2,11 @@
 module Data.Picture where
 
 import Prelude
-import Data.Foldable (foldl)
+import Data.Foldable (foldl) --Functions for folding data
 import Data.Number (infinity)
 -- ANCHOR_END: module_picture
 -- ANCHOR: picture_import_as
-import Data.Number as Number
+import Data.Number as Number -- use as qualified name, to shorten 
 -- ANCHOR_END: picture_import_as
 
 -- ANCHOR: Point

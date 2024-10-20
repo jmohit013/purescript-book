@@ -25,6 +25,8 @@ fromString "true" = true
 fromString _      = false
 -- ANCHOR_END: fromString
 
+
+
 -- ANCHOR: toString
 toString :: Boolean -> String
 toString true  = "true"

@@ -23,7 +23,8 @@ fib n = fib (n - 1) + fib (n - 2)
 -- ANCHOR: length
 length :: forall a. Array a -> Int
 length [] = 0
-length arr = 1 + (length $ fromMaybe [] $ tail arr)
+length arr = 1 + (length (fromMaybe [] (tail arr) ) )
+
 -- ANCHOR_END: length
 
 -- ANCHOR: factors
